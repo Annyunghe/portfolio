@@ -3,7 +3,7 @@ export default function Header() {
     "w-auto text-sm text-gray-100 p-2 font-bold hover:text-amber-900";
 
   return (
-    <div className="mt-2 flex flex-row justify-center bg-amber-600 gap-10">
+    <div className="flex flex-row justify-center bg-amber-600 gap-10">
       <button className={barStyle}>레시피 모음</button>
       <button className={barStyle}>최근 조회</button>
       <button className={barStyle}>순위</button>
