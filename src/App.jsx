@@ -4,6 +4,12 @@ import mainImage from "./assets/요리.png";
 import Recipe from "./components/Recipe.jsx";
 
 function App() {
+  const [recipes,addRecipe] = useState([]);
+
+  function handleRecipe(newRecipe) {
+    addRecipe(...recipes,newRecipe);
+  }
+
   return (
     <>
       <div className="w-52 h-full mx-auto">
@@ -15,7 +21,7 @@ function App() {
       </div>
 
       <Header />
-      <Recipe />
+      <Recipe onClick={handleRecipe} recipes={recipes}/>
     </>
   );
 }
