@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header.jsx";
 import mainImage from "./assets/요리.png";
-import Recipe from "./components/Recipe.jsx";
+import RecipeList from "./components/RecipeList.jsx";
+import axios from 'axios';
 
 function App() {
   const [recipes,addRecipe] = useState([]);
 
+  useEffect(()=>{
+    axios.get('http://localhost:3000/recipes')
+    .then(response=>addRecipe(response.data))
+  },[])
+
   function handleRecipe(newRecipe) {
-    addRecipe(...recipes,newRecipe);
+    axios.post('http://localhost:3000/recipes',newRecipe)
+    .then(response=>{
+      addRecipe([...recipes,newRecipe]);
+    })
   }
 
   return (
@@ -21,7 +30,7 @@ function App() {
       </div>
 
       <Header />
-      <Recipe onClick={handleRecipe} recipes={recipes}/>
+      <RecipeList onAddRecipe={handleRecipe} recipes={recipes}/>
     </>
   );
 }
