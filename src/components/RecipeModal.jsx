@@ -27,9 +27,7 @@ const RecipeModal = ({ onClose, onAddRecipe }) => {
     const newRecipe = {
       title,
       image,
-      ingredients: ingredients
-        .split(",")
-        .map((ingredient) => ingredient.trim()),
+      ingredients,
       method,
     };
 
@@ -68,7 +66,7 @@ const RecipeModal = ({ onClose, onAddRecipe }) => {
         </div>
         <div>
           <label>재료 작성</label>
-          <input
+          <textarea
             className={inputStyle}
             type="text"
             value={ingredients}
@@ -78,7 +76,7 @@ const RecipeModal = ({ onClose, onAddRecipe }) => {
         </div>
         <div>
           <label>조리 과정</label>
-          <input
+          <textarea
             className={inputStyle}
             type="text"
             value={method}

@@ -15,13 +15,13 @@ export default function RecipeList({ onAddRecipe, recipes }) {
   };
 
   return (
-    <div className="grid grid-cols-3 mx-20 gap-2">
+    <>
       {recipes.length > 0 ? (
-        recipes.map((recipe, index) => {
-          return (
-            <Recipe recipe={recipe} index={index}/>
-          );
-        })
+        <div className="grid grid-cols-3 mx-60 gap-2">
+          {recipes.map((recipe, index) => (
+            <Recipe recipe={recipe} index={index} />
+          ))}
+        </div>
       ) : (
         <p className="text-center mt-4">레시피 정보가 없습니다.</p>
       )}
@@ -32,7 +32,9 @@ export default function RecipeList({ onAddRecipe, recipes }) {
       >
         +
       </button>
-      {modalState && <RecipeModal onClose={closeModal} onAddRecipe={onAddRecipe}/>}
-    </div>
+      {modalState && (
+        <RecipeModal onClose={closeModal} onAddRecipe={onAddRecipe} />
+      )}
+    </>
   );
 }
