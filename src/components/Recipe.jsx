@@ -1,6 +1,6 @@
 import likeImage from "../assets/하트.png";
 
-export default function Recipe({ recipe, index }) {
+export default function Recipe({ recipe, index, onLike }) {
   return (
     <div
       key={index}
@@ -12,15 +12,12 @@ export default function Recipe({ recipe, index }) {
       <p className="whitespace-pre-line">{recipe.ingredients}</p>
       <h2 className="mt-2">과정</h2>
       <p className="whitespace-pre-line">{recipe.method}</p>
-      <div className="flex gap-1">
-        <img
-          src={likeImage}
-          alt="likeImage"
-          className="mt-2 w-4 h-4"
-        />
-        <p className="mt-1 w-5 h-5 text-sm bg-gray-300 text-center rounded">
-          1
-        </p>
+      <div
+        className="mt-2 -m-1 inline-flex hover:bg-red-500 hover:bg-opacity-20 rounded items-center"
+        onClick={() => onLike(recipe.id)}
+      >
+        <img src={likeImage} alt="likeImage" className="ml-1 w-4 h-4 rounded" />
+        <p className="w-6 h-6 text-sm text-center">{recipe.like}</p>
       </div>
     </div>
   );

@@ -1,5 +1,22 @@
 {
   "recipes": [
-
+    {
+      "id": "a6fc",
+      "title": "라면",
+      "image": "",
+      "ingredients": "1.물\n2.라면",
+      "method": "1.물을 끓인다.\n2.라면을 넣는다.",
+      "like": 1,
+      "liked": true
+    },
+    {
+      "id": "e5fc",
+      "title": "삼겹살",
+      "image": "",
+      "ingredients": "1.삼겹살\n2.양파",
+      "method": "1.후라이팬을 대핀다.",
+      "like": 1,
+      "liked": true
+    }
   ]
 }

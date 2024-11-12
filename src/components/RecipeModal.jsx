@@ -29,6 +29,8 @@ const RecipeModal = ({ onClose, onAddRecipe }) => {
       image,
       ingredients,
       method,
+      like:0,
+      liked:false
     };
 
     onAddRecipe(newRecipe);

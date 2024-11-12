@@ -2,7 +2,7 @@ import { useState } from "react";
 import Recipe from "./recipe.jsx";
 import RecipeModal from "./RecipeModal.jsx";
 
-export default function RecipeList({ onAddRecipe, recipes }) {
+export default function RecipeList({ onAddRecipe, recipes, onLike }) {
   const [modalState, setModal] = useState(false);
 
   const openModal = () => {
@@ -19,7 +19,7 @@ export default function RecipeList({ onAddRecipe, recipes }) {
       {recipes.length > 0 ? (
         <div className="grid grid-cols-3 mx-60 gap-2">
           {recipes.map((recipe, index) => (
-            <Recipe recipe={recipe} index={index} />
+            <Recipe recipe={recipe} index={index} onLike={onLike}/>
           ))}
         </div>
       ) : (
