@@ -11,10 +11,18 @@ function App() {
   const [recipes, setRecipe] = useState([]);
   const [recentViewed, setRecentViewed] = useState([]);
 
+  //레시피 불러오기
   useEffect(() => {
     axios
       .get("http://localhost:3000/recipes")
       .then((response) => setRecipe(response.data));
+  }, []);
+
+  //최근 본 레시피 불러오기
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/recentViewed")
+      .then((response) => setRecentViewed(response.data));
   }, []);
 
   //레시피 추가 기능
@@ -52,12 +60,16 @@ function App() {
   }
 
   //레시피 클릭 핸들러(최근 레시피 조회)
-  function handleRecentRecipe(recipe){
-    if(!recentViewed.some((item)=>item.id===recipe.id)){
-      axios.post('http://localhost:3000/recentViewed',recipe).then(()=>{
-        setRecentViewed((prevRecipes)=>[recipe,...prevRecipes].slice(0,5));
-      })
-      .catch((error)=>console.error('Error adding recent recipe',error));
+  function handleRecentRecipe(recipe) {
+    if (!recentViewed.some((item) => item.id == recipe.id)) {
+      axios
+        .post("http://localhost:3000/recentViewed", recipe)
+        .then(() => {
+          setRecentViewed((prevRecipes) =>
+            [recipe, ...prevRecipes].slice(0, 5)
+          );
+        })
+        .catch((error) => console.error("Error adding recent recipe", error));
     }
   }
 
@@ -81,13 +93,16 @@ function App() {
                 onAddRecipe={handleRecipe}
                 recipes={recipes}
                 onLike={handleLike}
+                onViewed={handleRecentRecipe}
               />
             }
           />
-          <Route path="/recent" element={<Recent />} />
-          <Route path="/rank" element={<Rank />} />
+          <Route
+            path="/recent"
+            element={<Recent recipes={recentViewed} onLike={handleLike}/>}
+          />
+          <Route path="/rank" element={<Rank recipes={recipes} onLike={handleLike}/>} />
         </Routes>
-
       </Router>
     </>
   );

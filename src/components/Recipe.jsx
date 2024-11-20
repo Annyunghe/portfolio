@@ -1,10 +1,11 @@
 import likeImage from "../assets/하트.png";
 
-export default function Recipe({ recipe, index, onLike }) {
+export default function Recipe({ recipe, index, onLike, onViewed }) {
   return (
     <div
       key={index}
       className="relative pb-8 bg-gray-200 rounded-xl border-2 border-stone-700 p-3"
+      onClick={()=>onViewed(recipe)}
     >
       <h2 className="font-bold text-xl">{recipe.title}</h2>
       {recipe.image ? <img src={recipe.image} /> : null}

@@ -15,6 +15,17 @@
       "image": "",
       "ingredients": "1.삼겹살\n2.양파",
       "method": "1.후라이팬을 대핀다.",
+      "like": 2,
+      "liked": true
+    }
+  ],
+  "recentViewed": [
+    {
+      "id": "e5fc",
+      "title": "삼겹살",
+      "image": "",
+      "ingredients": "1.삼겹살\n2.양파",
+      "method": "1.후라이팬을 대핀다.",
       "like": 1,
       "liked": true
     }

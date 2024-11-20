@@ -1,3 +1,19 @@
-export default function Rank(){
-    
+import Recipe from "./recipe.jsx";
+
+export default function Rank({ recipes, onLike }) {
+  const sortedRecipes = [...recipes].sort((a,b)=>b.like-a.like);
+  
+    return (
+    <>
+      {recipes.length > 0 ? (
+        <div className="grid grid-cols-3 mx-60 gap-2">
+          {sortedRecipes.map((recipe, index) => (
+            <Recipe recipe={recipe} index={index} onLike={onLike} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center mt-4">레시피 정보가 없습니다.</p>
+      )}
+    </>
+  );
 }
