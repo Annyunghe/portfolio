@@ -5,6 +5,7 @@ import mainImage from "./assets/요리.png";
 import RecipeList from "./components/RecipeList.jsx";
 import Recent from "./components/Recent.jsx";
 import Rank from "./components/Rank.jsx";
+import Search from './components/Search.jsx'
 import axios from "axios";
 
 function App() {
@@ -84,7 +85,7 @@ function App() {
           ></img>
         </div>
 
-        <Header />
+        <Header/>
         <Routes>
           <Route
             path="/"
@@ -102,6 +103,7 @@ function App() {
             element={<Recent recipes={recentViewed} onLike={handleLike}/>}
           />
           <Route path="/rank" element={<Rank recipes={recipes} onLike={handleLike}/>} />
+          <Route path="/search" element={<Search recipes={recipes} onLike={handleLike} onViewed={handleRecentRecipe}/>}/>
         </Routes>
       </Router>
     </>
