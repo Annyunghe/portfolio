@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import Header from "./components/Header.jsx";
 import mainImage from "./assets/요리.png";
 import RecipeList from "./components/RecipeList.jsx";
 import Recent from "./components/Recent.jsx";
 import Rank from "./components/Rank.jsx";
-import Search from './components/Search.jsx'
+import Search from "./components/Search.jsx";
+import RecipeDetail from "./components/RecipeDetail.jsx";
 import axios from "axios";
 
 function App() {
@@ -60,8 +66,9 @@ function App() {
     console.log("like button Click");
   }
 
-  //레시피 클릭 핸들러(최근 레시피 조회)
-  function handleRecentRecipe(recipe) {
+  //레시피 클릭 핸들러
+  function handleRecentRecipe(recipe, navigate) {
+    //최근 레시피 조회
     if (!recentViewed.some((item) => item.id == recipe.id)) {
       axios
         .post("http://localhost:3000/recentViewed", recipe)
@@ -70,8 +77,24 @@ function App() {
             [recipe, ...prevRecipes].slice(0, 5)
           );
         })
-        .catch((error) => console.error("Error adding recent recipe", error));
+        .catch((error) => console.error("최근 레시피 추가 오류", error));
+    } else if (recentViewed.some((item) => item.id == recipe.id)) {
+      axios
+        .delete(`http://localhost:3000/recentViewed/${recipe.id}`)
+        .then(() => {
+          axios.post("http://localhost:3000/recentViewed", recipe).then(() => {
+            setRecentViewed((prevRecipes) => {
+              const updatedRecipes = prevRecipes.filter(
+                (item) => item.id !== recipe.id
+              );
+              return [recipe, ...updatedRecipes];
+            });
+          });
+        })
+        .catch((error) => console.error("최근 레시피 업데이트 오류", error));
     }
+    //상세 보기 페이지 이동
+    navigate(`/recipe/${recipe.id}`);
   }
 
   return (
@@ -85,7 +108,7 @@ function App() {
           ></img>
         </div>
 
-        <Header/>
+        <Header />
         <Routes>
           <Route
             path="/"
@@ -100,10 +123,38 @@ function App() {
           />
           <Route
             path="/recent"
-            element={<Recent recipes={recentViewed} onLike={handleLike}/>}
+            element={
+              <Recent
+                recipes={recentViewed}
+                onLike={handleLike}
+                onViewed={handleRecentRecipe}
+              />
+            }
           />
-          <Route path="/rank" element={<Rank recipes={recipes} onLike={handleLike}/>} />
-          <Route path="/search" element={<Search recipes={recipes} onLike={handleLike} onViewed={handleRecentRecipe}/>}/>
+          <Route
+            path="/rank"
+            element={
+              <Rank
+                recipes={recipes}
+                onLike={handleLike}
+                onViewed={handleRecentRecipe}
+              />
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <Search
+                recipes={recipes}
+                onLike={handleLike}
+                onViewed={handleRecentRecipe}
+              />
+            }
+          />
+          <Route
+            path="/recipe/:id"
+            element={<RecipeDetail recipes={recipes} onLike={handleLike} />}
+          />
         </Routes>
       </Router>
     </>

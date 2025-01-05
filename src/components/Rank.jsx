@@ -1,6 +1,6 @@
-import Recipe from "./recipe.jsx";
+import Recipe from "./Recipe.jsx";
 
-export default function Rank({ recipes, onLike }) {
+export default function Rank({ recipes, onLike, onViewed }) {
   const sortedRecipes = [...recipes].sort((a,b)=>b.like-a.like);
   
     return (
@@ -8,7 +8,7 @@ export default function Rank({ recipes, onLike }) {
       {recipes.length > 0 ? (
         <div className="grid grid-cols-3 mx-60 gap-2">
           {sortedRecipes.map((recipe, index) => (
-            <Recipe recipe={recipe} index={index} onLike={onLike} />
+            <Recipe recipe={recipe} index={index} onLike={onLike} onViewed={onViewed} />
           ))}
         </div>
       ) : (

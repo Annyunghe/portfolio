@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import Recipe from "./recipe";
+import Recipe from "./Recipe";
 
 export default function Search({recipes,onLike,onViewed}){
     const location = useLocation();

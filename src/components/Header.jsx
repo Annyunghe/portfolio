@@ -5,14 +5,17 @@ import { useState } from "react";
 export default function Header() {
   const barStyle =
     "w-auto text-sm text-gray-100 p-2 font-bold hover:text-amber-900";
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const navigate = useNavigate();
 
-  function handleSearch(){
-    if(query.trim() !== ''){
-      navigate(`/search?query=${encodeURIComponent(query)}`)
+  function handleSearch() {
+    if (query.trim() !== "") {
+      navigate(`/search?query=${encodeURIComponent(query)}`);
+    } else {
+      navigate("/");
     }
+    setQuery("");
   }
 
   return (
@@ -30,7 +33,7 @@ export default function Header() {
       <div className="flex">
         <input
           placeholder="검색어를 입력하세요"
-          onChange={(event)=>setQuery(event.target.value)}
+          onChange={(event) => setQuery(event.target.value)}
           value={query}
           className="w-48 pl-1 bg-amber-600 border-amber-700 border-2 my-1 mr-1 focus:border-amber-900 focus:outline-none placeholder-gray-200 placeholder:text-sm text-gray-100"
         ></input>

@@ -1,11 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import likeImage from "../assets/하트.png";
 
 export default function Recipe({ recipe, index, onLike, onViewed }) {
+  const navigate = useNavigate();
+
   return (
     <div
       key={index}
       className="relative pb-8 bg-gray-200 rounded-xl border-2 border-stone-700 p-3"
-      onClick={()=>onViewed(recipe)}
+      onClick={()=>onViewed(recipe,navigate)}
     >
       <h2 className="font-bold text-xl">{recipe.title}</h2>
       {recipe.image ? <img src={recipe.image} /> : null}

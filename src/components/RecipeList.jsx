@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Recipe from "./recipe.jsx";
+import Recipe from "./Recipe.jsx";
 import RecipeModal from "./RecipeModal.jsx";
 
 export default function RecipeList({ onAddRecipe, recipes, onLike, onViewed }) {
