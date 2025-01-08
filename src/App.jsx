@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import mainImage from "./assets/요리.png";
 import RecipeList from "./components/RecipeList.jsx";
@@ -35,8 +30,20 @@ function App() {
   //레시피 추가 기능
   function handleRecipe(newRecipe) {
     axios.post("http://localhost:3000/recipes", newRecipe).then((response) => {
-      setRecipe([...recipes, newRecipe]);
+      setRecipe([...recipes, response.data]);
     });
+  }
+
+  //레시피 삭제 기능
+  function deleteRecipe(id) {
+    axios
+      .delete(`http://localhost:3000/recipes/${id}`)
+      .then(() => {
+        setRecipe((prevRecipes) => {
+          return prevRecipes.filter((recipe) => recipe.id !== id);
+        });
+      })
+      .catch((error) => console.error("레시피 삭제 오류", error));
   }
 
   //좋아요 기능
@@ -115,6 +122,7 @@ function App() {
             element={
               <RecipeList
                 onAddRecipe={handleRecipe}
+                onDeleteRecipe={deleteRecipe}
                 recipes={recipes}
                 onLike={handleLike}
                 onViewed={handleRecentRecipe}
