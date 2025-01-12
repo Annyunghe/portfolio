@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import HomeImage from './components/HomeImage.jsx'
 import Header from "./components/Header.jsx";
 import mainImage from "./assets/요리.png";
 import RecipeList from "./components/RecipeList.jsx";
@@ -44,6 +49,14 @@ function App() {
         });
       })
       .catch((error) => console.error("레시피 삭제 오류", error));
+    axios
+      .delete(`http://localhost:3000/recentViewed/${id}`)
+      .then(() => {
+        setRecentViewed((prevRecipes) => {
+          return prevRecipes.filter((recipe) => recipe.id !== id);
+        });
+      })
+      .catch((error) => console.error("레시피 삭제 오류", error));
   }
 
   //좋아요 기능
@@ -65,6 +78,17 @@ function App() {
               : recipe
           )
         );
+        await axios.patch(`http://localhost:3000/recipes/${id}`, {
+          like: updatedRecipe.like + 1,
+          liked: true,
+        });
+        setRecentViewed((prevRecipes) =>
+          prevRecipes.map((recipe) =>
+            id == recipe.id && !recipe.liked
+              ? { ...recipe, like: recipe.like + 1, liked: true }
+              : recipe
+          )
+        );
       }
     } catch (error) {
       console.log("Error updating recipe", error);
@@ -75,7 +99,7 @@ function App() {
 
   //레시피 클릭 핸들러
   function handleRecentRecipe(recipe, navigate) {
-    //최근 레시피 조회
+    //최근 레시피 조회 추가
     if (!recentViewed.some((item) => item.id == recipe.id)) {
       axios
         .post("http://localhost:3000/recentViewed", recipe)
@@ -107,15 +131,9 @@ function App() {
   return (
     <>
       <Router>
-        <div className="w-52 h-full mx-auto">
-          <img
-            src={mainImage}
-            alt="mainImage"
-            className="rounded-3xl object-contain"
-          ></img>
-        </div>
-
+        <HomeImage mainImage={mainImage}/>
         <Header />
+
         <Routes>
           <Route
             path="/"

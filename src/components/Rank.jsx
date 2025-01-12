@@ -6,7 +6,7 @@ export default function Rank({ recipes, onLike, onViewed }) {
     return (
     <>
       {recipes.length > 0 ? (
-        <div className="grid grid-cols-3 mx-60 gap-2">
+        <div className="grid grid-cols-3 mx-60 gap-2 mb-5">
           {sortedRecipes.map((recipe, index) => (
             <Recipe recipe={recipe} index={index} onLike={onLike} onViewed={onViewed} />
           ))}

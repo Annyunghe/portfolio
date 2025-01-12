@@ -28,7 +28,7 @@ export default function RecipeList({
   return (
     <>
       {Array.isArray(recipes) && recipes.length > 0 ? (
-        <div className="grid grid-cols-3 mx-60 gap-2">
+        <div className="grid grid-cols-3 mx-60 gap-2 mb-5">
           {recipes.map((recipe, index) => (
             <Recipe
               recipe={recipe}
@@ -43,7 +43,7 @@ export default function RecipeList({
       ) : (
         <p className="text-center mt-4">레시피 정보가 없습니다.</p>
       )}
-      <div className="flex flex-col bottom-3/5 absolute right-5 gap-4">
+      <div className="flex flex-col bottom-1/3 fixed right-5 gap-4">
         <button
           className="text-xl bg-amber-700 font-bold text-gray-100 hover:bg-amber-800 rounded-full w-10 h-10"
           onClick={openModal}
